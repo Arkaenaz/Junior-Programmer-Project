@@ -1,27 +1,31 @@
 using UnityEngine;
 
-public class MoveToPlayer : MonoBehaviour
+// INHERITANCE
+public class EnemyController : UnitController
 {
-    [SerializeField] private float _maxSpeed = 5f;
-
     private GameObject _player;
-    private Rigidbody _rb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
-        _rb = GetComponent<Rigidbody>();
-        _rb.maxLinearVelocity = _maxSpeed;
+
+        _rigidbody.maxLinearVelocity = _maxSpeed;
     }
 
-    // Update is called once per frame
-    void Update()
+    // POLYMORPHISM
+    protected override void Move()
     {
         if (_player == null)
             return;
 
         Vector3 direction = _player.transform.position - transform.position;
-        _rb.AddForce(direction * Time.deltaTime, ForceMode.VelocityChange);
+        _rigidbody.AddForce(direction * _moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
+    }
+
+    // POLYMORPHISM
+    protected override void OutOfBoundsHandler()
+    {
+        Destroy(gameObject);
     }
 }

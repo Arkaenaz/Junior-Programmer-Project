@@ -150,9 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38250047c1977e8478c6a6e2d1abfa2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _rangeX: 9
-  _rangeY: -10
+  _maxSpeed: 30
+  _moveSpeed: 10
+  _outOfBoundsRangeX: 10
+  _outOfBoundsRangeY: -10
+  _mainManager: {fileID: 0}
 --- !u!1001 &3540499566160220288
 PrefabInstance:
   m_ObjectHideFlags: 0
