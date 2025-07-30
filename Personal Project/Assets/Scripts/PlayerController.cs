@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float _maxSpeed = 5f;
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _rangeX = 10f;
     [SerializeField] private float _rangeY = -10f;
@@ -14,6 +16,7 @@ public class PlayerController : MonoBehaviour
     {
         _playerRb = GetComponent<Rigidbody>();
         _moveInput = InputSystem.actions.FindAction("Move");
+        _playerRb.maxLinearVelocity = _maxSpeed;
     }
 
     // Update is called once per frame
@@ -40,7 +43,7 @@ public class PlayerController : MonoBehaviour
         float verticalInput = _moveInput.ReadValue<Vector2>().y;
 
         Vector3 movement = new Vector3(horizontalInput, 0, verticalInput);
-        _playerRb.AddForce(movement * _moveSpeed);
+        _playerRb.AddForce(movement * _moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
     }
 
     void DestroyOutOfBounds()
@@ -50,6 +53,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Player out of bounds, destroying player.");
             Debug.Log("Game Over!");
             Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
         }
     }
     void OnCollisionEnter(Collision collision)

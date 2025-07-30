@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         _horizontalInput = _moveAction.ReadValue<Vector2>().x;
         _forwardInput = _moveAction.ReadValue<Vector2>().y;
